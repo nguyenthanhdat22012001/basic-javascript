@@ -1,3 +1,32 @@
+function validateArray(array) {
+    if(Array.isArray(array) ){
+        return array;
+    }
+    throw new Error(`${array} is type ${typeof array}, not string`);
+}
+function validString(str) {
+    if (typeof(str) == "string") {
+        return str;
+    }
+    throw new Error(`${str} is type ${typeof(str)}, not string`);
+}
+
+function validNumber(number) {
+    if (typeof(number) == "number") {
+        return number;
+    }
+    throw new Error(`${number} is type ${typeof(number)}, not number`);
+}
+function valid_object(object) {
+    if(object == null){
+        throw new Error(`object is not null`);
+    }
+
+    if(typeof object == 'object'){
+        return object;
+    }
+    throw new Error(`${object} is type ${typeof object}, not object`);
+}
 // # bai1 
 
 function getKeys() {
@@ -61,8 +90,10 @@ function getUser(array) {
     //         age : number,
     //         isStatus : bool
     //     }
+    let valid_array = validateArray(array);
+    let valid_array_object = valid_array.map(item => valid_object(item));
 
-    let arr = array.filter((item) => item.age > 25 && item.isStatus == true );
+    let arr = valid_array_object.filter((item) => item.age > 25 && item.isStatus == true );
 
     return arr
 }
@@ -82,20 +113,18 @@ console.log(getUser(
     ]
     ));
 
+
 // # bai 6
 
 function sortUser(array) {
-   return array.sort((ele1,ele2) => ele1.age - ele2.age);
+    let valid_array = validateArray(array);
+    let valid_array_object = valid_array.map(item => valid_object(item));
+   return valid_array_object.sort((ele1,ele2) => ele1.age - ele2.age);
 }
 
 
 console.log(sortUser(
     [
-        {
-                name : "nguyen dat",
-                age : 26,
-                isStatus : true
-        },
         {
                 name : "nguyen nam",
                 age : 23,

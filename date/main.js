@@ -4,6 +4,10 @@ function validNumber(number) {
     }
     throw new Error(`${number} is type ${typeof(number)}, not number`);
 }
+function Distance(diff,unit) {
+    let unitValid =  validNumber(unit);
+    return Math.floor(diff / unitValid);
+}
 
 /// # bai1
 
@@ -23,34 +27,39 @@ console.log(formatDate(new Date(),'/'))
 // bai2 
 
 function getDaysInMonth(month,year) {
+    let valid_month = validNumber(month);
+    let valid_year = validNumber(year);
     // return moment(`${month}-${year}`, "MM-YYYY").daysInMonth();
-    return new Date(year, month,0).getDate();
+    return new Date(year, valid_month,0).getDate();
 }
 //console.log(getDaysInMonth(9,2021))
 
 // bai3 
 
 function checkWeekend(day,month,year) {
-    let weekend =  d = new Date(year,month - 1,day)
+    let valid_day = validNumber(day);
+    let valid_month = validNumber(month);
+    let valid_year = validNumber(year);
+
+    let weekend =  d = new Date(valid_year,valid_month - 1,valid_day)
 
     return weekend == 0 || weekend == 6 ? 'weekend' : 'not weekend';
 }
 
 //console.log(checkWeekend(13,09,2021));
 
-function Distance(diff,unit) {
-    let unitValid =  validNumber(unit);
-    return Math.floor(diff / unitValid);
-}
+
 // bai4 
 
 function howLong(h,m) {
-    //  return moment(`${h}:${m}`,'h:m').fromNow(); 
+    let valid_hours = validNumber(h);
+    let valid_minute = validNumber(m);
+    
     let timeNow = new Date();
 
     let time = new Date();
-    time.setHours(h);
-    time.setMinutes(m)
+    time.setHours(valid_hours);
+    time.setMinutes(valid_minute)
 
     if(timeNow < time) throw new Error('time is greater than current time')
 
@@ -78,11 +87,17 @@ function daysFromBeginToNow() {
 // # bai 6
 
 function calculate_age(day,month,year) {
-  let birthday =  new Date(year,month - 1 , day);
-  let now = new Date(); 
-  let diff =  now -birthday;
-  let oneYear = 365 * 24 * 60 * 60 * 1000;
-  let diffYear = Distance(diff,oneYear)
+
+    let valid_day = validNumber(day);
+    let valid_month = validNumber(month);
+    let valid_year = validNumber(year);
+
+    let birthday =  new Date(valid_year,valid_month - 1 , valid_day);
+    let now = new Date(); 
+    let diff =  now -birthday;
+    let oneYear = 365 * 24 * 60 * 60 * 1000;
+    let diffYear = Distance(diff,oneYear)
+
   return diffYear + " years ago";
 }
 
@@ -91,7 +106,12 @@ function calculate_age(day,month,year) {
 // bai 7 
 
 function startOfWeek(day,month,year) {
-    let date = new Date(year,month - 1 , day);
+    let valid_day = validNumber(day);
+    let valid_month = validNumber(month);
+    let valid_year = validNumber(year);
+ 
+
+    let date = new Date(valid_year,valid_month - 1 , valid_day);
     
     let startOfWeek = date.getDate() - date.getDay() + 1;
     date.setDate(startOfWeek);
@@ -104,7 +124,10 @@ function startOfWeek(day,month,year) {
 // bai8
 
 function endOfMonth(month,year) {
-    let endDay = new Date(year,month,0);
+    let valid_month = validNumber(month);
+    let valid_year = validNumber(year);
+
+    let endDay = new Date(valid_year,valid_month,0);
 
     return `the last day of the month ${endDay.getMonth() + 1} is ${endDay.getDate()}`;
 }
@@ -112,7 +135,6 @@ function endOfMonth(month,year) {
 //console.log(endOfMonth(10,2021))
 
 //bai 9 
-
 // function countDownNewYear() {
 //     let today = moment();
 //     let tagTime = document.querySelector('.time');
@@ -165,21 +187,52 @@ function countDownNewYear() {
     }, 1000);
 
 }
-countDownNewYear();
+//countDownNewYear();
 
 
 
 //bai 10
 
-function countTime(t,x) {
-    if(x > 1000 )
-        return false;
+function countTime(stringTime,period) {
+    let valid_period  = validNumber(period);
 
-      let preTime =  moment(t,"h:m:s").format("h:m:s");
+    if(valid_period > 1000 )
+         throw new Error(`time < 1000`);
+         
+    let  arrTime =  StringTimeConvertArrayNum(stringTime);
 
-      let  afterTime = moment(t,"h:m:s").add(x, 's').format("h:m:s");
+    let preTime = new Date();
+    preTime.setHours(arrTime[0]);
+    preTime.setMinutes(arrTime[1]);
+    preTime.setSeconds(arrTime[2]);
 
-      return `pre time = ${preTime} , after time = ${afterTime}`
+  
+
+    let afterTime =new Date();
+    afterTime.setHours(arrTime[0]);
+    afterTime.setMinutes(arrTime[1]);
+    afterTime.setSeconds(arrTime[2] + valid_period);
+
+    return `pre time = ${formatTime(preTime,':')} , after time = ${formatTime(afterTime,':')}`
 }
 
-//console.log(countTime('11:32:45',7));
+console.log(countTime('11:32:45',7));
+
+// valid
+function StringTimeConvertArrayNum(string) {
+    let arrString = string.split(/[:\/-]/);
+    let arrNumber =  arrString.map(element => {
+       return Number(element);
+    });
+    return arrNumber;
+}
+
+function formatTime(Object_date,separation) {
+
+     let time = Object_date;
+     let hours = time.getHours();
+     let minutes = time.getMinutes();
+     let seconds = time.getSeconds();
+ 
+    return `${hours}${separation}${minutes}${separation}${seconds}`
+ }
