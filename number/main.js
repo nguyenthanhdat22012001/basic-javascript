@@ -72,14 +72,7 @@ function sumPrime(n) {
 
         let flag = true;
 
-
-        for (let index = 2; index < (i - 1); index++) {
-
-            if (i % index == 0) {
-                flag = false;
-                 break;
-            }
-        }
+        flag = Prime(i);
 
         if (flag) {
             sum+= i;

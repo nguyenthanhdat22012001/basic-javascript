@@ -1,3 +1,10 @@
+function validateArray(array) {
+    if(Array.isArray(array) ){
+        return array;
+    }
+    throw new Error(`${array} is type ${typeof array}, not string`);
+}
+
 // # bai 1 
 
 function minNumbers(array) {
@@ -122,12 +129,12 @@ function changeIndexArray(array,indexChange,index) {
 
 function similarity(array1,array2) {
 
-    let arr1 = array1;
-    let arr2 = array2;
-    let newArr = arr1.filter((value) => {
-        return arr2.includes(value) == 1;
+
+    let newArr = array1.filter((value) => {
+        return array2.includes(value) == 1;
     })
-    return newArr
+
+    return newArr;
 }
 
 //console.log(similarity([1, 2, 3], [1, 2, 4]))
@@ -136,15 +143,13 @@ function similarity(array1,array2) {
 
 function symmetricDifference(array1,array2) {
 
-    let arr1 = array1;
-    let arr2 = array2;
 
-    let newArr1 = arr1.filter((value) => {
-        return arr2.includes(value) != 1;
+    let newArr1 = array1.filter((value) => {
+        return array2.includes(value) != 1;
     })
 
-    let newArr2 = arr2.filter((value) => {
-        return arr1.includes(value) != 1;
+    let newArr2 = array2.filter((value) => {
+        return array1.includes(value) != 1;
     })
 
 
@@ -157,14 +162,12 @@ function symmetricDifference(array1,array2) {
 
 function union(array1,array2) {
 
-    let arr1 = array1;
-    let arr2 = array2;
 
-    let newArr1 = arr1.filter((value) => {
-        return arr2.includes(value) != 1 || arr2.includes(value) == 1 ;
+    let newArr1 = array1.filter((value) => {
+        return array2.includes(value) != 1 || arr2.includes(value) == 1 ;
     })
 
-    let newArr2 = arr2.filter((value) => {
+    let newArr2 = array2.filter((value) => {
         return newArr1.includes(value) != 1;
     })
 
@@ -184,8 +187,8 @@ function random_hex_color_code(){
 
 // # bai 13
 function sub_String(string) {
-    var len = string.length;
-    var list = [];
+    let len = string.length;
+    let list = [];
     for(var i = 0; i <= len; i++) {
       for (var s = 0; s < i; s++) {
         list.push(string.substring(s, i));

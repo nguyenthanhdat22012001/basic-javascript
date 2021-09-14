@@ -1,3 +1,10 @@
+function validateString(str) {
+    if(typeof str == 'string'){
+        return str;
+    }
+    throw new Error(`${str} is type ${typeof str}, not string`);
+}
+
 //  # BAI 1 #
 function checkExistString(originString, subString) {
 
@@ -27,6 +34,7 @@ function capitalizeString(string) {
     let toString_string = string.toString();
     toString_string.trim();
 
+    toString_string.toLowerCase();
     let new_string ='';
     let arr_string = toString_string.split(" ");
 

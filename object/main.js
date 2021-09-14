@@ -61,33 +61,26 @@ function getUser(array) {
     //         age : number,
     //         isStatus : bool
     //     }
- 
-    let arr = [];
 
-    array.forEach(element => {
-        console.log(element.age)
-      if (element.age > 25 && element.isStatus == true) {
-          arr.push(element);
-      }
-    });
+    let arr = array.filter((item) => item.age > 25 && item.isStatus == true );
 
     return arr
 }
 
-// console.log(getUser(
-//     [
-//         {
-//                 name : "nguyen dat",
-//                 age : 26,
-//                 isStatus : true
-//         },
-//         {
-//                 name : "nguyen nam",
-//                 age : 23,
-//                 isStatus : true
-//         }
-//     ]
-//     ));
+console.log(getUser(
+    [
+        {
+                name : "nguyen dat",
+                age : 26,
+                isStatus : true
+        },
+        {
+                name : "nguyen nam",
+                age : 23,
+                isStatus : true
+        }
+    ]
+    ));
 
 // # bai 6
 
