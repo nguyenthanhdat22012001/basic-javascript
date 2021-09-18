@@ -8,11 +8,14 @@ const InputSearch = document.querySelector('#search-task');
 function showTasksOnBrowser() {
     const tasks = model.getAllTasks();
     view.showTasks(tasks);
+    
+    setTimeout(() => {
+        editTask();
+        deleteTask();
+   }, 500);
 }
 
-window.onload = ()=>{
-    showTasksOnBrowser();
-}
+
 
 function AddNewTaskFromInput(){
     let value = InputNewTask.value;
@@ -98,18 +101,15 @@ const updateTask = ()=>{
         let text = InputNewTask.value;
         model.updateTaskById(id,text);
         showTasksOnBrowser();
-        btn.remove();
+        view.removeBtn(btn);
         InputNewTask.value ='';
     })
 }
 
 
 setTimeout(() => {
-    editTask();
-}, 500);
-
-setInterval(() => {
-    deleteTask();
+    showTasksOnBrowser();
+   
 }, 500);
 
 

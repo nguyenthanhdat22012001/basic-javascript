@@ -28,7 +28,7 @@ export function showOneTaskOnInput(input,task){
     const btnEditTask = document.querySelector('#edit-task');
 
     if(btnEditTask != null){
-        btnEditTask.remove();
+        removeBtn(btnEditTask);
     }
     
     // create btn edit
@@ -39,4 +39,8 @@ export function showOneTaskOnInput(input,task){
     btnEdit.setAttribute('data-id',task.id);
 
     btnAddTask.after(btnEdit);
+}
+
+export function removeBtn(btn){
+    btn.remove();
 }
