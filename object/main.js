@@ -65,6 +65,8 @@ function keyExist(key) {
         };
 
    return user[key] != undefined ? true : false;
+   // return key in user
+   // return user.hasOwnProperty(key)
 }
 
 //console.log(keyExist("name"))
