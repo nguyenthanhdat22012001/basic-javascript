@@ -1,12 +1,8 @@
 
+
 const key = 'tasks';
 
-function validateArray(array) {
-    if(Array.isArray(array) ){
-        return array;
-    }
-    throw new Error(`${array} is type ${typeof array}, not string`);
-}
+
 
 function saveTask(tasks) {
     localStorage.setItem(key, JSON.stringify(tasks));
@@ -18,6 +14,7 @@ export function addNewTask(value) {
     const task = { id: id, text: value };
     tasks.push(task);
     saveTask(tasks);
+    return {error: false, message: 'add task success'};
 }
 
  function sortTask(array){
@@ -57,14 +54,15 @@ export function updateTaskById(id,text) {
             item.text  = text;
         }
     })
-
     saveTask(tasks);
+    return {error: false, message: 'edit task success'};
 }
 
 export function deleteTask(id) {
     const tasks = getAllTasks();
     const fillterTasks = tasks.filter(item => item.id != id)
     saveTask(fillterTasks);
+    return {error: false, message: 'delete task success'};
 }
 
 export function deleteAllTask() {

@@ -1,10 +1,10 @@
 
-const ul = document.querySelector('ul');
 
 
 
-export function showTasks(tasks) {
-    ul.innerHTML = '';
+
+export function showTasks(parent,tasks) {
+    parent.innerHTML = '';
     tasks.forEach(task =>{
         const li = document.createElement('li');
         li.className = 'collection-item';
@@ -15,7 +15,7 @@ export function showTasks(tasks) {
         `;
         li.querySelector('.remove').setAttribute('data-id',task.id)
         li.querySelector('.edit').setAttribute('data-id',task.id)
-        ul.appendChild(li);
+        parent.appendChild(li);
     })
 }
 
